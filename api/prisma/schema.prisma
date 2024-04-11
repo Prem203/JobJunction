@@ -14,8 +14,56 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  auth0Id      String   @unique @default("")
-  name         String?
+  user_id           Int       @id @default(autoincrement())
+  user_email        String    @unique
+  user_first_name   String    @default("")
+  user_last_name    String    @default("")
+  user_auth0_id      String   @unique @default("")
+  user_date_joined  DateTime  @default(now())
+  applications     Application[]
 }
+
+model Job {
+  job_id                        String       @id @map("job_id")
+  employer_name                 String?
+  employer_logo                 String?
+  employer_website              String?
+  employer_company_type         String?
+  job_publisher                 String?
+  job_title                     String?
+  job_apply_link                String?
+  job_apply_is_direct           Boolean?
+  job_description               String?
+  job_is_remote                 Boolean?
+  job_posted_at_timestamp       Int?
+  job_posted_at_datetime_utc    DateTime?
+  job_city                      String?
+  job_state                     String?
+  job_country                   String?
+  job_google_link               String?
+  job_offer_expiration_datetime_utc DateTime?
+  job_offer_expiration_timestamp Int?
+  job_required_experience       Json?
+  job_required_skills           Json?
+  job_required_education        Json?
+  job_experience_in_place_of_education Boolean?
+  job_min_salary                Float?
+  job_max_salary                Float?
+  job_salary_currency           String?
+  job_salary_period             String?
+  job_highlights                Json?
+  applications                Application[]
+}
+
+model Application {
+  application_id         String        @id @map("application_id")
+  job_id                 String
+  user_id                Int
+  job                    Job           @relation(fields: [job_id], references: [job_id])
+  user                   User          @relation(fields: [user_id], references: [user_id])
+  status                 String?
+  date_submitted         DateTime?
+  cover_letter           String?
+  resume_url             String?
+}
+
