@@ -17,9 +17,15 @@ export default function Header() {
             <h1 className="app-name">JobJunction</h1>
           </div>
           <div className="nav-icons">
-            <IoBriefcase className="icon" />
-            <IoBookmarks className="icon" />
-            <FaUserAlt className="icon" />
+            <a href="/jobList" className="nav-link">
+              <IoBriefcase className="icon" />
+            </a>
+            <a href="/savedJobs" className="nav-link">
+              <IoBookmarks className="icon" />
+            </a>
+            <a href="/profile" className="nav-link">
+              <FaUserAlt className="icon" />
+            </a>
           </div>
         </div>
       </header>

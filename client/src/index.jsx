@@ -2,7 +2,10 @@ import React from "react";
 import * as ReactDOMClient from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "./components/NotFound";
-import Home from "./components/Home";
+import LandingPage from "./pages/LandingPage.jsx";
+import JobListPage from "./pages/JobListPage.jsx";
+import SavedJobListPage from "./pages/SavedJobListPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
 
@@ -25,8 +28,11 @@ root.render(
       <AuthTokenProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/jobList" element={<JobListPage />} />
+            <Route path="/savedJobs" element={<SavedJobListPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </BrowserRouter>
       </AuthTokenProvider>
