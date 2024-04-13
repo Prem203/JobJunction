@@ -1,7 +1,11 @@
+import Footer from "./Footer.jsx";
+import Header from "./Header.jsx";
+
 export default function Home() {
   return (
     <div className="home">
-      <h1>Assignment 3</h1>
+      <Header />
+      <Footer />
     </div>
   );
 }

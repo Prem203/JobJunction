@@ -1,0 +1,44 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+  width: 100%;
+}
+
+.logo-and-text {
+    display: flex;
+    align-items: center;
+  }
+  
+  .app-name {
+    font-weight: bold;
+    font-size: 1.5rem; /* Adjust the font size as needed */
+    margin-left: 30px; /* Adjust the margin as needed */
+  }
+
+  .nav-icons {
+    display: flex;
+    align-items: right;
+    margin-right: 20px;
+    justify-content: space-between;
+  }
+
+  .icon {
+    font-size: 25px; /* Adjust the font size as needed */
+    padding: 15px;
+  }
+
+footer {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Add background color as needed */
+}
