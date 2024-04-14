@@ -33,6 +33,7 @@ root.render(
             <Route path="/jobList" element={<JobListPage />} />
             <Route path="/savedJobs" element={<SavedJobListPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </BrowserRouter>
       </AuthTokenProvider>

@@ -3,6 +3,7 @@ import jobJunctionLogo from "../assets/jjs-logo-black.png";
 import { IoBriefcase } from "react-icons/io5";
 import { IoBookmarks } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 import "../styling/styles.css";
 
 export default function Header() {
@@ -25,6 +26,9 @@ export default function Header() {
             </a>
             <a href="/profile" className="nav-link">
               <FaUserAlt className="icon" />
+            </a>
+            <a href="/about" className="nav-link">
+              <FaInfoCircle className="icon" />
             </a>
           </div>
         </div>
