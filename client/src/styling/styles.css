@@ -43,3 +43,27 @@ footer {
   align-items: center;
   background-color: #f0f0f0; /* Add background color as needed */
 }
+
+.about-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.about-page-title {
+  color: #333;
+  text-align: center;
+}
+
+.about-page-content {
+  margin-top: 20px;
+}
+
+.about-page-content p {
+  line-height: 1.6;
+}
+
+.about-page-footer {
+  margin-top: 20px;
+  text-align: center;
+}

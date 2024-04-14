@@ -1,7 +1,12 @@
-import React from 'react'
+import React from "react";
+import EmptyHeader from "../components/EmptyHeader";
+import Footer from "../components/Footer";
 
 export default function SavedJobListPage() {
   return (
-    <div>SavedJobListPage</div>
-  )
+    <>
+      <EmptyHeader headerTag={"Saved Jobs"} />
+      <Footer />
+    </>
+  );
 }

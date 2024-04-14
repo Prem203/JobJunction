@@ -6,6 +6,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 import JobListPage from "./pages/JobListPage.jsx";
 import SavedJobListPage from "./pages/SavedJobListPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
 
