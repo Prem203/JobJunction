@@ -33,3 +33,16 @@ app.get("/ping", (req, res) => {
 app.listen(8000, () => {
   console.log("Server running on http://localhost:8000 🎉 🚀");
 });
+
+// app.get("/api/fetchAllJobs", async (req, res) => {
+//   console.log("Fetching all job details from /api/fetchAllJobs");
+
+//   try {
+//     const response = await fetch(FETCH_ALL_JOBS_URL, options);
+//     const data = await response.json();
+//     console.log(data);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal server error");
+//   }
+// });
