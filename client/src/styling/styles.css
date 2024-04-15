@@ -67,3 +67,63 @@ footer {
   margin-top: 20px;
   text-align: center;
 }
+
+.home {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.recommended-jobs {
+  margin-top: 20px;
+  margin-left: 30px;
+
+}
+
+.recommended-jobs h2 {
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.job-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+.job-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.job-card h3 {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.see-more-link {
+  display: flex;
+  margin-top: 20px;
+  font-size: 16px;
+  color: purple;
+  text-decoration: none;
+}
+
+.right-arrow {
+  margin-top:2px;
+  margin-left: 7px;
+}
+
+.see-more-link:hover {
+  text-decoration: underline;
+}
+
