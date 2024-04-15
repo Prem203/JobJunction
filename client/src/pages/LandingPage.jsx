@@ -7,6 +7,7 @@ import {
   API_HOST,
   FETCH_COMPUTER_NETWORKING_JOBS_URL,
   FETCH_WEB_DEVELOPMENT_JOBS_URL,
+  ICON_LIST_HOME
 } from "../constants.js";
 import "../styling/styles.css";
 
@@ -15,8 +16,8 @@ export default function LandingPage() {
   const [webDevelopmentJobs, setWebDevelopmentJobs] = useState([]);
 
   useEffect(() => {
-    fetchWebDevelopmentJobs();
-    fetchComputerNetworkingJobs();
+    // fetchWebDevelopmentJobs();
+    // fetchComputerNetworkingJobs();
   }, []);
 
   const fetchWebDevelopmentJobs = async () => {
@@ -63,11 +64,9 @@ export default function LandingPage() {
     }
   };
 
-  const iconList = ["briefcase", "bookmarks", "user", "info"];
-
   return (
     <>
-      <Header headerTag={"JobJunction"} iconList={iconList} />
+      <Header headerTag={"JobJunction"} iconList={ICON_LIST_HOME} />
       <div className="home">
         <div className="recommended-jobs">
           <h2>Jobs in Web Development</h2>

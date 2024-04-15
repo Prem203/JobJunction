@@ -1,3 +1,6 @@
+export const ICON_LIST_PROFILE = ["home", "logout"];
+export const ICON_LIST_COMMON = ["home"];
+export const ICON_LIST_HOME = ["briefcase", "bookmarks", "user", "info"];
 // export const API_KEY_1 = "e5cbb89badmshc2aa54afaf24a8cp18af7ajsnc8e65e41ca1b";
 export const API_KEY_1 = "fcae31b00bmshc41bd0c33c49c69p19bbf6jsn80220c6f3557";
 export const API_HOST = "jsearch.p.rapidapi.com";

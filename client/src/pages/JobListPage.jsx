@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { API_KEY_1, API_HOST, FETCH_ALL_JOBS_URL } from "../constants.js";
+import { ICON_LIST_COMMON, API_KEY_1, API_HOST, FETCH_ALL_JOBS_URL } from "../constants.js";
 
 export default function JobListPage() {
-  const iconList = ["home"];
 
   useEffect(() => {
-    fetchAllJobDetails();
+    // fetchAllJobDetails();
   }, []);
 
   const fetchAllJobDetails = async () => {
@@ -30,7 +29,7 @@ export default function JobListPage() {
 
   return (
     <>
-      <Header headerTag={"All Jobs"} iconList={iconList} /> <Footer />
+      <Header headerTag={"All Jobs"} iconList={ICON_LIST_COMMON} /> <Footer />
     </>
   );
 }
