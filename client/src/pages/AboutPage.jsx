@@ -1,12 +1,13 @@
 import React from "react";
-import EmptyHeader from "../components/EmptyHeader";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../styling/styles.css";
 
 export default function AboutPage() {
+  const iconList = ["home"];
   return (
     <>
-      <EmptyHeader headerTag={"About"} />
+      <Header headerTag={"About"} iconList={iconList} />
       <div className="about-page">
         <div className="about-page-content">
           <p>

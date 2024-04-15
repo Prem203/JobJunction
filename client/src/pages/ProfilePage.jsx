@@ -1,11 +1,12 @@
 import React from "react";
-import EmptyHeader from "../components/EmptyHeader";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export default function ProfilePage() {
+  const iconList = ["home", "logout"];
   return (
     <>
-      <EmptyHeader headerTag={"Profile"} />
+      <Header headerTag={"Profile"} iconList={iconList} />
       <Footer />
     </>
   );

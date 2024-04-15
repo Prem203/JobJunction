@@ -63,9 +63,11 @@ export default function LandingPage() {
     }
   };
 
+  const iconList = ["briefcase", "bookmarks", "user", "info"];
+
   return (
     <>
-      <Header />
+      <Header headerTag={"JobJunction"} iconList={iconList} />
       <div className="home">
         <div className="recommended-jobs">
           <h2>Jobs in Web Development</h2>
