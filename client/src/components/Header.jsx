@@ -1,11 +1,7 @@
 import React from "react";
 import jobJunctionLogo from "../assets/jjs-logo-black.png";
-import { IoBriefcase } from "react-icons/io5";
-import { IoBookmarks } from "react-icons/io5";
-import { FaUserAlt } from "react-icons/fa";
-import { FaInfoCircle } from "react-icons/fa";
-import { FaHome } from "react-icons/fa";
-import { FaSignOutAlt } from "react-icons/fa";
+import { IoBriefcase, IoBookmarks } from "react-icons/io5";
+import { FaUserAlt, FaInfoCircle, FaHome, FaSignOutAlt } from "react-icons/fa";
 import "../styling/styles.css";
 
 export default function Header({ headerTag, iconList }) {

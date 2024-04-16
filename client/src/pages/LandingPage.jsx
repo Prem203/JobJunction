@@ -79,7 +79,7 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-          <a href="/more-jobs" className="see-more-link">
+          <a href="/jobList" className="see-more-link">
             <div>See more jobs</div>
             <FaArrowRightLong className="right-arrow" />
           </a>
@@ -95,7 +95,7 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-          <a href="/more-jobs" className="see-more-link">
+          <a href="/jobList" className="see-more-link">
             <div>See more jobs</div>
             <FaArrowRightLong className="right-arrow" />
           </a>
