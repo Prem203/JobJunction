@@ -24,35 +24,36 @@ model User {
 }
 
 model Job {
-  job_id                        String       @id @map("job_id")
+  id                            Int       @id @default(autoincrement())
+  job_id                        String?   @unique
+  query                         String?
   employer_name                 String?
   employer_logo                 String?
   employer_website              String?
   employer_company_type         String?
   job_publisher                 String?
   job_title                     String?
-  job_apply_link                String?
+  job_apply_link                String @db.VarChar(1000)
   job_apply_is_direct           Boolean?
-  job_description               String?
+  job_description               String @db.VarChar(5000)
   job_is_remote                 Boolean?
   job_posted_at_timestamp       Int?
-  job_posted_at_datetime_utc    DateTime?
+  job_posted_at_datetime        String?
   job_city                      String?
   job_state                     String?
   job_country                   String?
   job_google_link               String?
-  job_offer_expiration_datetime_utc DateTime?
+  job_offer_expiration_datetime String?
   job_offer_expiration_timestamp Int?
   job_required_experience       Json?
   job_required_skills           Json?
   job_required_education        Json?
-  job_experience_in_place_of_education Boolean?
   job_min_salary                Float?
   job_max_salary                Float?
   job_salary_currency           String?
   job_salary_period             String?
   job_highlights                Json?
-  applications                Application[]
+  applications     Application[]
 }
 
 model Application {
@@ -66,4 +67,3 @@ model Application {
   cover_letter           String?
   resume_url             String?
 }
-
