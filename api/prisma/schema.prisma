@@ -20,7 +20,7 @@ model User {
   user_last_name    String    @default("")
   user_auth0_id      String   @unique @default("")
   user_date_joined  DateTime  @default(now())
-  applications     Application[]
+  SavedJobs                     SavedJobs[]
 }
 
 model Job {
@@ -53,17 +53,13 @@ model Job {
   job_salary_currency           String?
   job_salary_period             String?
   job_highlights                Json?
-  applications     Application[]
+  SavedJobs                     SavedJobs[]
 }
 
-model Application {
-  application_id         String        @id @map("application_id")
+model SavedJobs {
+  saved_id               Int           @id @default(autoincrement())
   job_id                 String
   user_id                Int
   job                    Job           @relation(fields: [job_id], references: [job_id])
   user                   User          @relation(fields: [user_id], references: [user_id])
-  status                 String?
-  date_submitted         DateTime?
-  cover_letter           String?
-  resume_url             String?
 }
