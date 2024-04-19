@@ -5,9 +5,9 @@ import { ICON_LIST_COMMON } from "../constants.js";
 
 export default function JobListPage() {
 
-  useEffect(() => {
-    // fetchAllJobDetails();
-  }, []);
+  // useEffect(() => {
+  //   // fetchAllJobDetails();
+  // }, []);
 
   // const fetchAllJobDetails = async () => {
   //   console.log("Fetching all job details");

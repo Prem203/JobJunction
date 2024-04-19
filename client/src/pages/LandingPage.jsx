@@ -9,10 +9,10 @@ export default function LandingPage() {
 
   const { user } = useAuth0();
 
-  useEffect(() => {
-    // console.log("isAuthenticated", isAuthenticated);
-    console.log("user", user);
-  }, []);
+  // useEffect(() => {
+  //   // console.log("isAuthenticated", isAuthenticated);
+  //   console.log("user", user);
+  // }, []);
 
 
 

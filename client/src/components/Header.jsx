@@ -14,6 +14,7 @@ export default function Header({ headerTag, iconList }) {
     console.log("logging out");
     console.log("isAuthenticated before logout", isAuthenticated);
     console.log("user before logout", user);
+    console.log("window.location.origin", window.location.origin);
     logout({returnTo: window.location.origin});
     console.log("isAuthenticated after logout", isAuthenticated);
     console.log("user after logout", user);
@@ -31,31 +32,31 @@ export default function Header({ headerTag, iconList }) {
           );
         case "briefcase":
           return (
-            <Link key={index} to="/home/jobList" className="nav-link">
+            <Link key={index} to="/jobList" className="nav-link">
               <IoBriefcase className="icon" />
             </Link>
           );
         case "bookmarks":
           return (
-            <Link key={index} to="/home/savedJobs" className="nav-link">
+            <Link key={index} to="/savedJobs" className="nav-link">
               <IoBookmarks className="icon" />
             </Link>
           );
         case "user":
           return (
-            <Link key={index} to="/home/profile" className="nav-link">
+            <Link key={index} to="/profile" className="nav-link">
               <FaUserAlt className="icon" />
             </Link>
           );
         case "info":
           return (
-            <Link key={index} to="/home/about" className="nav-link">
+            <Link key={index} to="/about" className="nav-link">
               <FaInfoCircle className="icon" />
             </Link>
           );
         case "home":
           return (
-            <Link key={index} to="/home" className="nav-link">
+            <Link key={index} to="/" className="nav-link">
               <FaHome className="icon" />
             </Link>
           );

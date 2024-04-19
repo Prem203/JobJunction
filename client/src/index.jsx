@@ -43,25 +43,24 @@ root.render(
     >
       <AuthTokenProvider>
         <BrowserRouter>
-          <Routes>
-            {/* <Route path="/" element={<LandingPage />} /> */}
-            <Route path="/verify-user" element={<VerifyUser />} />
-            <Route
-              path="/home"
-              element={
-                <RequireAuth>
-                  <LandingPage />
-                </RequireAuth>
-              }
-            >
-            <Route path="/home/jobList" element={<JobListPage />} />
-            <Route path="savedJobs" element={<SavedJobListPage />} />
-            <Route path="/home/profile" element={<ProfilePage />} />
-            <Route path="about" element={<AboutPage />} />
-            <Route path="debugger" element={<AuthDebugger />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+        <Routes>
+          <Route path="/verify-user" element={<VerifyUser />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/jobList" element={<JobListPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route
+            path="/*"
+            element={
+              <RequireAuth>
+                <Routes>
+                  <Route path="/savedJobs" element={<SavedJobListPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                </Routes>
+              </RequireAuth>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         </BrowserRouter>
       </AuthTokenProvider>
     </Auth0Provider>

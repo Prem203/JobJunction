@@ -25,7 +25,7 @@ export default function VerifyUser() {
       if (user.user_auth0_id) {
 
         console.log("user exists", user);
-        navigate("/home");
+        navigate("/");
       }
     }
 
