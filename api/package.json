@@ -1,7 +1,7 @@
 {
   "name": "new_api",
   "version": "1.0.0",
-  "prisma":{
+  "prisma": {
     "seed": "prisma/seed.js"
   },
   "description": "",
@@ -16,6 +16,7 @@
     "prisma": "^5.10.2"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@prisma/client": "^5.10.2",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",

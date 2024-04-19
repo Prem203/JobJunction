@@ -1,13 +1,19 @@
 import React from "react";
 import jobJunctionLogo from "../assets/jjs-logo-black.png";
 import { IoBriefcase, IoBookmarks } from "react-icons/io5";
-import { FaUserAlt, FaInfoCircle, FaHome, FaSignOutAlt } from "react-icons/fa";
+import { FaUserAlt, FaInfoCircle, FaHome, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import "../styling/styles.css";
 
 export default function Header({ headerTag, iconList }) {
   const renderIcons = () => {
     return iconList.map((icon, index) => {
       switch (icon) {
+        case "login":
+          return (
+            <a key={index} href="/verify-user" className="nav-link">
+              <FaSignInAlt className="icon" />
+            </a>
+          );
         case "briefcase":
           return (
             <a key={index} href="/jobList" className="nav-link">
