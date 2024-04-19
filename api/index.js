@@ -36,3 +36,32 @@ app.listen(8000, () => {
 
 //handle 500 error -- display no jobs exist with this title!
 
+app.post("/verify-user", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const email = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/email`];
+  const name = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/name`];
+  console.log("auth0Id", auth0Id);
+  console.log("email", email);
+  console.log("name", name);
+  console.log("request", req.auth.payload);
+  const user = await prisma.user.findUnique({
+    where: {
+      user_auth0_id: auth0Id,
+    },
+  });
+
+  if (user) {
+    res.json(user);
+  } else {
+    const newUser = await prisma.user.create({
+      data: {
+        user_email: email,
+        user_auth0_id: auth0Id,
+        user_first_name: name,
+        user_date_joined: new Date(),
+      },
+    });
+
+    res.json(newUser);
+  }
+});

@@ -1,54 +1,69 @@
 import React from "react";
 import jobJunctionLogo from "../assets/jjs-logo-black.png";
+import { Link } from "react-router-dom";
 import { IoBriefcase, IoBookmarks } from "react-icons/io5";
 import { FaUserAlt, FaInfoCircle, FaHome, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import "../styling/styles.css";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 export default function Header({ headerTag, iconList }) {
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+
+  const logoutUser = () => {
+    console.log("logging out");
+    console.log("isAuthenticated before logout", isAuthenticated);
+    console.log("user before logout", user);
+    logout({returnTo: window.location.origin});
+    console.log("isAuthenticated after logout", isAuthenticated);
+    console.log("user after logout", user);
+  }
+
+
   const renderIcons = () => {
     return iconList.map((icon, index) => {
       switch (icon) {
         case "login":
           return (
-            <a key={index} href="/verify-user" className="nav-link">
+            <Link key={index} to="/verify-user" className="nav-link" onClick={loginWithRedirect}>
               <FaSignInAlt className="icon" />
-            </a>
+            </Link>
           );
         case "briefcase":
           return (
-            <a key={index} href="/jobList" className="nav-link">
+            <Link key={index} to="/home/jobList" className="nav-link">
               <IoBriefcase className="icon" />
-            </a>
+            </Link>
           );
         case "bookmarks":
           return (
-            <a key={index} href="/savedJobs" className="nav-link">
+            <Link key={index} to="/home/savedJobs" className="nav-link">
               <IoBookmarks className="icon" />
-            </a>
+            </Link>
           );
         case "user":
           return (
-            <a key={index} href="/profile" className="nav-link">
+            <Link key={index} to="/home/profile" className="nav-link">
               <FaUserAlt className="icon" />
-            </a>
+            </Link>
           );
         case "info":
           return (
-            <a key={index} href="/about" className="nav-link">
+            <Link key={index} to="/home/about" className="nav-link">
               <FaInfoCircle className="icon" />
-            </a>
+            </Link>
           );
         case "home":
           return (
-            <a key={index} href="/" className="nav-link">
+            <Link key={index} to="/home" className="nav-link">
               <FaHome className="icon" />
-            </a>
+            </Link>
           );
         case "logout":
           return (
-            <a key={index} href="/logout" className="nav-link">
+            <Link key={index} className="nav-link" onClick={logoutUser}>
               <FaSignOutAlt className="icon" />
-            </a>
+            </Link>
           );
         default:
           return null;

@@ -1,5 +1,5 @@
-import "../style/appLayout.css";
-
+import React from "react";
+import '../styling/styles.css';
 import { useEffect } from "react";
 import { useAuthToken } from "../AuthTokenContext";
 import { useNavigate } from "react-router-dom";
@@ -20,9 +20,12 @@ export default function VerifyUser() {
         },
       });
       const user = await data.json();
+      console.log("user", user);
 
-      if (user.auth0Id) {
-        navigate("/app");
+      if (user.user_auth0_id) {
+
+        console.log("user exists", user);
+        navigate("/home");
       }
     }
 

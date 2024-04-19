@@ -1,12 +1,15 @@
 import React from "react";
 import * as ReactDOMClient from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import LandingPage from "./pages/LandingPage.jsx";
 import JobListPage from "./pages/JobListPage.jsx";
 import SavedJobListPage from "./pages/SavedJobListPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
+import VerifyUser from "./components/VerifyUser";
+import AuthDebugger from "./components/AuthDebugger";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
 
@@ -14,6 +17,18 @@ const container = document.getElementById("root");
 const root = ReactDOMClient.createRoot(container);
 
 const requestedScopes = ["profile", "email"];
+
+function RequireAuth({ children }) {
+  const { isAuthenticated, isLoading } = useAuth0();
+
+  // If the user is not authenticated, redirect to the home page
+  if (!isLoading && !isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+
+  // Otherwise, display the children (the protected page)
+  return children;
+}
 
 root.render(
   <React.StrictMode>
@@ -29,12 +44,23 @@ root.render(
       <AuthTokenProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            {/* <Route path="/" element={<LandingPage />} /> */}
+            <Route path="/verify-user" element={<VerifyUser />} />
+            <Route
+              path="/home"
+              element={
+                <RequireAuth>
+                  <LandingPage />
+                </RequireAuth>
+              }
+            >
+            <Route path="/home/jobList" element={<JobListPage />} />
+            <Route path="savedJobs" element={<SavedJobListPage />} />
+            <Route path="/home/profile" element={<ProfilePage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="debugger" element={<AuthDebugger />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
-            <Route path="/jobList" element={<JobListPage />} />
-            <Route path="/savedJobs" element={<SavedJobListPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </BrowserRouter>
       </AuthTokenProvider>
