@@ -1,11 +1,12 @@
-
-
 .header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+  margin: 0px;
+  position: sticky;
+  top:0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
   width: 100%;
 }
 
@@ -16,7 +17,6 @@
   
   .app-name {
     font-weight: bold;
-    /* font-size: 1.5rem;  */
     margin-left: 30px; 
   }
 
@@ -144,6 +144,7 @@ footer {
   background-color: #ccaeeb;
   opacity: 0.8;
   border-radius: 0 0 50% 50% / 0 0 100% 100%; 
+  box-shadow: 0px 8px 8px rgba(47, 0, 100, 0.8); 
   overflow: hidden;
 }
 

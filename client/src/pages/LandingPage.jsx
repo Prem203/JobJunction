@@ -6,19 +6,18 @@ import { useAuth0 } from "@auth0/auth0-react";
 import "../styling/styles.css";
 
 export default function LandingPage() {
-
   const { user } = useAuth0();
 
   // useEffect(() => {
-  //   // console.log("isAuthenticated", isAuthenticated);
   //   console.log("user", user);
   // }, []);
 
-
-
   return (
     <>
-    <Header headerTag={"Job Junction"} iconList={user ? ICON_LIST_HOME_LOGIN : ICON_LIST_HOME_LOGOUT} />
+      <Header
+        headerTag={"Job Junction"}
+        iconList={user ? ICON_LIST_HOME_LOGIN : ICON_LIST_HOME_LOGOUT}
+      />
       <div className="semicircle">
         <div className="home-content">
           <h1>

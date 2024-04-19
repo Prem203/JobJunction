@@ -2,31 +2,37 @@ import React from "react";
 import jobJunctionLogo from "../assets/jjs-logo-black.png";
 import { Link } from "react-router-dom";
 import { IoBriefcase, IoBookmarks } from "react-icons/io5";
-import { FaUserAlt, FaInfoCircle, FaHome, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import {
+  FaUserAlt,
+  FaInfoCircle,
+  FaHome,
+  FaSignOutAlt,
+  FaSignInAlt,
+} from "react-icons/fa";
 import "../styling/styles.css";
 import { useAuth0 } from "@auth0/auth0-react";
-
 
 export default function Header({ headerTag, iconList }) {
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
   const logoutUser = () => {
     console.log("logging out");
-    console.log("isAuthenticated before logout", isAuthenticated);
-    console.log("user before logout", user);
-    console.log("window.location.origin", window.location.origin);
-    logout({returnTo: window.location.origin});
+    console.log("user", user);
+    logout({ returnTo: window.location.origin });
     console.log("isAuthenticated after logout", isAuthenticated);
-    console.log("user after logout", user);
-  }
-
+  };
 
   const renderIcons = () => {
     return iconList.map((icon, index) => {
       switch (icon) {
         case "login":
           return (
-            <Link key={index} to="/verify-user" className="nav-link" onClick={loginWithRedirect}>
+            <Link
+              key={index}
+              to="/verify-user"
+              className="nav-link"
+              onClick={loginWithRedirect}
+            >
               <FaSignInAlt className="icon" />
             </Link>
           );
