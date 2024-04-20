@@ -12,20 +12,24 @@ function AuthTokenProvider({ children }) {
   useEffect(() => {
     const getAccessToken = async () => {
       try {
-        // get access token silently from Auth0, which will be stored in the context
-        const token = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-            scope: requestedScopes.join(" "),
-          },
-        });
-        setAccessToken(token);
+        if (isAuthenticated) {
+          // get access token silently from Auth0, which will be stored in the context
+          const token = await getAccessTokenSilently({
+            authorizationParams: {
+              audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+              scope: requestedScopes.join(" "),
+            },
+          });
+          console.log(token);
+          setAccessToken(token);
+        }
       } catch (err) {
         console.log(err);
       }
     };
 
     if (isAuthenticated) {
+      console.log("Getting access token");
       getAccessToken();
     }
   }, [getAccessTokenSilently, isAuthenticated]);

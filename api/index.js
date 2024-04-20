@@ -40,10 +40,9 @@ app.post("/verify-user", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
   const email = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/email`];
   const name = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/name`];
-  console.log("auth0Id", auth0Id);
-  console.log("email", email);
-  console.log("name", name);
-  console.log("request", req.auth.payload);
+  const nameParts = name.split(" ");
+  const firstName = nameParts[0];
+  const lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
   const user = await prisma.user.findUnique({
     where: {
       user_auth0_id: auth0Id,
@@ -57,7 +56,8 @@ app.post("/verify-user", requireAuth, async (req, res) => {
       data: {
         user_email: email,
         user_auth0_id: auth0Id,
-        user_first_name: name,
+        user_first_name: firstName,
+        user_last_name: lastName,
         user_date_joined: new Date(),
       },
     });
@@ -68,6 +68,7 @@ app.post("/verify-user", requireAuth, async (req, res) => {
 
 app.get("/api/fetchAllJobs", async (req, res) => {
   const allJobs = await prisma.job.findMany();
+  console.log("allJobs", allJobs);
   res.json(allJobs);
 });
 
@@ -79,9 +80,11 @@ app.get("/api/fetchSavedJobs", requireAuth, async (req, res) => {
       user_auth0_id: auth0Id,
     },
     select: {
-      saved_jobs: true,
+      SavedJobs: true,
     },
   });
   console.log("savedJobs", savedJobs);
   res.json(savedJobs);
 });
+
+// app.post("/api/saveJob", requireAuth, async (req, res) => {});

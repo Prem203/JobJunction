@@ -3,14 +3,17 @@ import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
 import { ICON_LIST_HOME_LOGIN, ICON_LIST_HOME_LOGOUT } from "../constants.js";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useAuthToken } from "../AuthTokenContext";
 import "../styling/styles.css";
 
 export default function LandingPage() {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
+  const { accessToken } = useAuthToken();
 
-  // useEffect(() => {
-  //   console.log("user", user);
-  // }, []);
+  useEffect(() => {
+    // console.log("isAuthenticated", isAuthenticated);
+    // console.log("access token", accessToken);
+  }, []);
 
   return (
     <>

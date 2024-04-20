@@ -4,10 +4,13 @@ import Footer from "../components/Footer";
 import SelectedJobDisplay from "../components/SelectedJobDisplay";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import {
-  FETCH_ALL_JOBS_DB_URL,
-  FETCH_SAVED_JOBS_DB_URL,
+  FETCH_ALL_JOBS_ENDPOINT,
+  FETCH_SAVED_JOBS_ENDPOINT,
+  SAVE_JOB_ENDPOINT,
   ICON_LIST_COMMON,
 } from "../constants.js";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useAuthToken } from "../AuthTokenContext.js";
 
 export default function JobListPage() {
   const [jobList, setJobList] = useState([]);
@@ -16,9 +19,13 @@ export default function JobListPage() {
   const [jobsToDisplay, setJobsToDisplay] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [savedJobs, setSavedJobs] = useState([]);
+
   const jobDataRef = useRef(null);
+  const { user } = useAuth0();
+  const { accessToken } = useAuthToken();
 
   useEffect(() => {
+    console.log("Access token", accessToken);
     fetchAllJobDetails();
     fetchSavedJobs();
   }, []);
@@ -30,14 +37,11 @@ export default function JobListPage() {
     }
   }, [jobList]);
 
-  useEffect(() => {
-    console.log("Saved jobs:", savedJobs);
-  }, [savedJobs]);
-
   const fetchAllJobDetails = async () => {
-    console.log("Fetching all job details from DB");
+    const fetchURL = `${process.env.REACT_APP_API_URL}${FETCH_ALL_JOBS_ENDPOINT}`;
+    console.log("Fetching all job details from DB", fetchURL);
     try {
-      const response = await fetch(FETCH_ALL_JOBS_DB_URL);
+      const response = await fetch(fetchURL);
       const data = await response.json();
       setJobList(data);
 
@@ -49,9 +53,18 @@ export default function JobListPage() {
   };
 
   const fetchSavedJobs = async () => {
-    console.log("Fetching saved jobs from DB");
+    if (!accessToken) {
+      console.log("No auth token found");
+      return;
+    }
+    const fetchURL = `${process.env.REACT_APP_API_URL}${FETCH_SAVED_JOBS_ENDPOINT}`;
+    console.log("Fetching saved jobs from DB", fetchURL);
     try {
-      const response = await fetch(FETCH_SAVED_JOBS_DB_URL);
+      const response = await fetch(fetchURL, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       const data = await response.json();
       setSavedJobs(data);
     } catch (error) {
@@ -85,37 +98,44 @@ export default function JobListPage() {
   };
 
   //change this to save the job to the user's profile
-  const toggleSave = (job, addToSavedJobs) => {
-    console.log("Toggling save for job");
-    // Check if the job is already saved
-    const index = savedJobs.findIndex(
+  const toggleSave = (job) => {
+    if (!user) {
+      alert("Please log in or sign up to save jobs");
+      return;
+    }
+    const updatedSavedJobs = Array.isArray(savedJobs) ? savedJobs : [];
+
+    const index = updatedSavedJobs.findIndex(
       (savedJob) => savedJob.job_id === job.job_id
     );
 
+    console.log(index);
+
     setSavedJobs((prevSavedJobs) => {
-      if (addToSavedJobs) {
-        console.log("Adding job to saved jobs");
-        // Add the job to savedJobs
-        return [...prevSavedJobs, job];
+      const prevJobs = Array.isArray(prevSavedJobs) ? prevSavedJobs : [];
+      if (index === -1) {
+        // Job is not saved, add it to savedJobs
+        return [...prevJobs, job];
       } else {
-        console.log("Removing job from saved jobs");
-        // Remove the job from savedJobs
-        const updatedSavedJobs = [...prevSavedJobs];
+        // Job is already saved, remove it from savedJobs
+        const updatedSavedJobs = [...prevJobs];
         updatedSavedJobs.splice(index, 1);
         return updatedSavedJobs;
       }
     });
+    console.log("Saved jobs", savedJobs);
     addSavedJobsToDB();
-    console.log("Saved jobs:", savedJobs);
   };
 
   const addSavedJobsToDB = async () => {
+    const postURL = `${process.env.REACT_APP_API_URL}${SAVE_JOB_ENDPOINT}`;
     console.log("Adding saved jobs to DB");
     try {
-      const response = await fetch(FETCH_SAVED_JOBS_DB_URL, {
+      const response = await fetch(postURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify(savedJobs),
       });
@@ -130,7 +150,7 @@ export default function JobListPage() {
     <>
       <Header headerTag={"All Jobs"} iconList={ICON_LIST_COMMON} />
       <div className="job-data">
-        <div className="job-list">
+        <div className="job-list" ref={jobDataRef}>
           <div className="search-bar">
             <input
               type="text"
@@ -146,7 +166,7 @@ export default function JobListPage() {
             </datalist>
             <button onClick={fetchQueryJobs}>Search</button>
           </div>
-          <div className="display-jobs" ref={jobDataRef}>
+          <div className="display-jobs">
             {jobsToDisplay.map((job) => (
               <div
                 key={job.job_id}
@@ -167,13 +187,17 @@ export default function JobListPage() {
                   onClick={() =>
                     toggleSave(
                       job,
-                      !savedJobs.some(
-                        (savedJob) => savedJob.job_id === job.job_id
-                      )
+                      !savedJobs ||
+                        !Array.isArray(savedJobs) ||
+                        !savedJobs.some(
+                          (savedJob) => savedJob.job_id === job.job_id
+                        )
                     )
                   }
                 >
-                  {savedJobs.some(
+                  {savedJobs &&
+                  Array.isArray(savedJobs) &&
+                  savedJobs.some(
                     (savedJob) => savedJob.job_id === job.job_id
                   ) ? (
                     <FaBookmark />

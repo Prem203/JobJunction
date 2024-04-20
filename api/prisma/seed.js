@@ -31,9 +31,27 @@ const fetchOptions = {
 };
 
 // Reset the sequence of the Job table to start from 1
-const resetSequence = async () => {
+const resetJobSequence = async () => {
   try {
     await prisma.$executeRaw`ALTER TABLE Job AUTO_INCREMENT = 1;`;
+    console.log("Sequence reset successfully.");
+  } catch (error) {
+    console.error("Error resetting sequence:", error);
+  }
+};
+
+const resetUserSequence = async () => {
+  try {
+    await prisma.$executeRaw`ALTER TABLE User AUTO_INCREMENT = 1;`;
+    console.log("Sequence reset successfully.");
+  } catch (error) {
+    console.error("Error resetting sequence:", error);
+  }
+};
+
+const resetSavedJobSequence = async () => {
+  try {
+    await prisma.$executeRaw`ALTER TABLE SavedJobs AUTO_INCREMENT = 1;`;
     console.log("Sequence reset successfully.");
   } catch (error) {
     console.error("Error resetting sequence:", error);
@@ -221,5 +239,7 @@ async function main() {
   }
 }
 
-// resetSequence();
+// resetJobSequence();
+// resetUserSequence();
+// resetSavedJobSequence();
 main();
