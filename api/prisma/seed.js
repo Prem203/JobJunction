@@ -121,7 +121,7 @@ const addJobsToDatabase = async (queryString, jobsToSeed) => {
               update: {},
               create: {
                 job_id: job.job_id,
-                query: queryString,
+                query: queryString.tolowerCase(),
                 employer_name: job.employer_name,
                 employer_logo: job.employer_logo,
                 employer_website: job.employer_website,

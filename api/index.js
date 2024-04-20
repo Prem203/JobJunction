@@ -65,3 +65,8 @@ app.post("/verify-user", requireAuth, async (req, res) => {
     res.json(newUser);
   }
 });
+
+app.get("/api/fetchAllJobs", async (req, res) => {
+  const allJobs = await prisma.job.findMany();
+  res.json(allJobs);
+});

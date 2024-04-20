@@ -9,7 +9,6 @@ import SavedJobListPage from "./pages/SavedJobListPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import VerifyUser from "./components/VerifyUser";
-import AuthDebugger from "./components/AuthDebugger";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
 

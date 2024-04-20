@@ -70,13 +70,13 @@ footer {
   text-align: center;
 }
 
-.home {
+/* .home {
   display: flex;
   flex-direction: column;
   height: auto;
-}
+} */
 
-.recommended-jobs {
+/* .recommended-jobs {
   margin-top: 20px;
   margin-left: 30px;
 
@@ -85,13 +85,47 @@ footer {
 .recommended-jobs h2 {
   margin-bottom: 30px;
   font-size: 24px;
+} */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 500px;
 }
 
-.job-cards {
+.search-bar input{
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-right: 20px;
+  justify-content: center;
+  width: 1500px;
+  height: 35px;
+}
+
+.search-bar button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  width: 200px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #ccaeeb;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.job-data {
+  display: flex;
+  margin: 20px;
+  /* background-color: red; */
+}
+
+.job-list {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  width: 500px;
 }
 
 .job-card {
@@ -99,10 +133,11 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  margin-bottom: 20px;
+  margin-top:10px;
+  margin-bottom: 10px;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #ccaeeb;
+  opacity: 0.8;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
@@ -112,7 +147,19 @@ footer {
   font-size: 18px;
 }
 
-.see-more-link {
+.job-details {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.display-jobs {
+  overflow-y: scroll;
+  margin-top:15px;
+  height: 1200px;
+}
+
+/* .see-more-link {
   display: flex;
   margin-top: 20px;
   font-size: 16px;
@@ -127,14 +174,14 @@ footer {
 
 .see-more-link:hover {
   text-decoration: underline;
-}
+} 
 
 .application-nav {
   font-family:'Times New Roman', Times, serif;
   font-weight: bold;
   font-size: 1.2rem;
   margin-left: 10px;
-}
+} */
 
 .semicircle {
   padding: 0 !important;
