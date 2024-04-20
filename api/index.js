@@ -70,3 +70,18 @@ app.get("/api/fetchAllJobs", async (req, res) => {
   const allJobs = await prisma.job.findMany();
   res.json(allJobs);
 });
+
+app.get("/api/fetchSavedJobs", requireAuth, async (req, res) => {
+  console.log("fetching saved jobs from DB");
+  const auth0Id = req.auth.payload.sub;
+  const savedJobs = await prisma.user.findUnique({
+    where: {
+      user_auth0_id: auth0Id,
+    },
+    select: {
+      saved_jobs: true,
+    },
+  });
+  console.log("savedJobs", savedJobs);
+  res.json(savedJobs);
+});
