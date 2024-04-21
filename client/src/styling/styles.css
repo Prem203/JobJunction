@@ -113,7 +113,7 @@ footer {
   font-size: 5.625rem;
   letter-spacing: -.04em;
   margin-top: 50px;
- 
+  margin-bottom: 80px;
 }
 
 /* Job List Page styling */
@@ -155,7 +155,7 @@ footer {
   display: flex;
   flex-direction: column;
   margin: 20px;
-  width: 100%;
+  width: 500px;
 }
 
 .job-tile {
@@ -347,7 +347,7 @@ footer {
   }
 
   /* Job List Page styling */
-  
+
   .search-bar input {
     width: 50%;
     height: 15px;
