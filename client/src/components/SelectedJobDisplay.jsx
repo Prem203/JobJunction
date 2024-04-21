@@ -3,7 +3,7 @@ import React from "react";
 export default function SelectedJobDisplay({ selectedJob }) {
   return (
     <>
-      <div>
+      <div className="selected-job-container">
         <h1>Job Details</h1>
         <h2>{selectedJob.job_title}</h2>
         <h3>{selectedJob.employer_name}</h3>

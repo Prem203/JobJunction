@@ -12,6 +12,7 @@ import {
 } from "../constants.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAuthToken } from "../AuthTokenContext.js";
+import JobTileInfoDisplay from "../components/JobTileInfoDisplay.jsx";
 
 export default function JobListPage() {
   const [jobList, setJobList] = useState([]);
@@ -36,11 +37,10 @@ export default function JobListPage() {
     }
   }, [jobList]);
 
-  useEffect(() => {
-  }, [savedJobs]);
+  useEffect(() => {}, [savedJobs]);
 
   useEffect(() => {
-    fetchSavedJobs(); 
+    fetchSavedJobs();
   }, []);
 
   const fetchAllJobDetails = async () => {
@@ -224,11 +224,7 @@ export default function JobListPage() {
                 }`}
                 onClick={() => handleCardClick(job)}
               >
-                <div className="job-info">
-                  <h2>{job.job_title}</h2>
-                  <h3>{job.employer_name}</h3>
-                  <h5>{job.query}</h5>
-                </div>
+                <JobTileInfoDisplay job={job} />
                 <div
                   className="save-button"
                   onClick={() =>
@@ -256,7 +252,7 @@ export default function JobListPage() {
             ))}
           </div>
         </div>
-        <div className="job-details">
+        <div className="selected-job-display">
           {selectedJob ? (
             <SelectedJobDisplay selectedJob={selectedJob} />
           ) : (
