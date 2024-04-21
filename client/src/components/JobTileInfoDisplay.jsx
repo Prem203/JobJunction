@@ -61,8 +61,8 @@ export default function JobTileInfoDisplay({ job }) {
           className="job-logo"
         />
       )}
-      <h3>{job.employer_name}</h3>
-      <h2>{job.job_title}</h2>
+      <h3>{job.employer_name.slice(0, 15)}</h3>
+      <h2 className="mob-display">{job.job_title.slice(0, 20)}</h2>
       <div className="job-tile-description">
         <div className="job-tile-salary-type">
           {showSalaryInfo && (

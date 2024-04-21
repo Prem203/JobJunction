@@ -70,6 +70,7 @@ footer {
 
 .about-page-content p {
   line-height: 1.6;
+  font-size: 20px;
 }
 
 .about-page-footer {
@@ -320,6 +321,12 @@ footer {
     margin-bottom: 50px;
   }
 
+  .icon {
+    font-size: 25px;
+    padding: 15px;
+    color: purple;
+  }
+
   /* Landing Page styling */
 
   .semicircle {
@@ -349,7 +356,7 @@ footer {
   /* Job List Page styling */
 
   .search-bar input {
-    width: 50%;
+    width: 20%;
     height: 15px;
   }
 
@@ -376,13 +383,132 @@ footer {
     border-radius: 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     position: relative;
+    height: 150px;
+  }
+  
+  .mob-display {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .job-list {
     display: flex;
     flex-direction: column;
-    margin: 20px;
-    width: 50%;
+    margin: 10px;
+    margin-left: auto;
+    width: 45%;
   }
+  
+  .job-tile:hover {
+    background-color: #e5dcfa; 
+  }
+  
+  .job-tile.selected {
+    background-color: #9e8cbf;
+  }
+  
+  .job-tile h3 {
+    margin: 8px 0 5px 0;
+    font-size: 12px;
+  }
+
+  .job-tile h2 {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 8px 0 5px 0;
+    font-size: 7px;
+  }
+  
+  .job-tile h5{
+    margin: 10px 0 10px 0;
+  }
+  
+  .display-jobs {
+    overflow-y: scroll;
+    margin-top: 15px;
+    height: 1200px;
+    border-right: px solid #ccc;
+  }
+
+  /* Selected Job Component styling */
+
+.selected-job-display {
+  overflow: scroll;
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  padding: 20px 50px 30px 50px;
+}
+
+/* Job Tile Component styling */
+
+.job-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.job-logo{
+  width: 40px;
+  height: 40px;
+  margin-bottom: 5px;
+  margin-top: 90px;
+}
+
+.job-tile-description {
+  width:300px;
+  height:100px;
+}
+
+.job-tile-salary-type {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0 5px 0;
+
+}
+
+.job-tile-location-duration {
+  font-size:15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0 5px 0;
+}
+
+.dot {
+  color: black;
+  font-size: 20px; 
+  margin: 0 5px;
+  vertical-align: middle;
+}
+
+
+.save-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ccaeeb;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #aaa;
+}
+
+.save-button svg {
+  color: #333;
+  font-size: 20px;
+}
+
 }
 
