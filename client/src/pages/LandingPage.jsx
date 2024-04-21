@@ -10,8 +10,14 @@ export default function LandingPage() {
   const { user, isAuthenticated } = useAuth0();
   const { accessToken } = useAuthToken();
 
+  const [userAuthenticated, setUserAuthenticated] = useState(false);
+
   useEffect(() => {
     // console.log("isAuthenticated", isAuthenticated);
+    if (isAuthenticated) {
+      setUserAuthenticated(true);
+    }
+    // console.log("user", user);
     // console.log("access token", accessToken);
   }, []);
 
@@ -19,7 +25,9 @@ export default function LandingPage() {
     <>
       <Header
         headerTag={"Job Junction"}
-        iconList={user ? ICON_LIST_HOME_LOGIN : ICON_LIST_HOME_LOGOUT}
+        iconList={
+          isAuthenticated ? ICON_LIST_HOME_LOGIN : ICON_LIST_HOME_LOGOUT
+        }
       />
       <div className="semicircle">
         <div className="home-content">

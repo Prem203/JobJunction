@@ -87,4 +87,92 @@ app.get("/api/fetchSavedJobs", requireAuth, async (req, res) => {
   res.json(savedJobs);
 });
 
-// app.post("/api/saveJob", requireAuth, async (req, res) => {});
+app.post("/api/saveJob", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const { jobId } = req.body;
+
+  const user = await prisma.user.findUnique({
+    where: {
+      user_auth0_id: auth0Id,
+    },
+  });
+
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  try {
+    // Check if the saved job already exists
+    const existingSavedJob = await prisma.savedJobs.findFirst({
+      where: {
+        user_id: user.user_id, // Assuming 'user_id' is the primary key for 'User'
+        job_id: jobId,
+      },
+    });
+
+    if (existingSavedJob) {
+      return res.status(409).json({ error: "Job already saved" });
+    }
+
+    const newSavedJob = await prisma.savedJobs.create({
+      data: {
+        user: {
+          connect: {
+            user_auth0_id: auth0Id,
+          },
+        },
+        job: {
+          connect: {
+            job_id: jobId,
+          },
+        },
+      },
+    });
+
+    return res.json(newSavedJob);
+  } catch (error) {
+    console.error("Error creating saved job:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.delete("/api/deleteSavedJob", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const { jobId } = req.body;
+
+  const user = await prisma.user.findUnique({
+    where: {
+      user_auth0_id: auth0Id,
+    },
+  });
+
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  try {
+    // Check if the job to be deleted exists in savedJobs
+    const existingSavedJob = await prisma.savedJobs.findFirst({
+      where: {
+        user_id: user.user_id,
+        job_id: jobId,
+      },
+    });
+
+    if (!existingSavedJob) {
+      return res.status(404).json({ error: "Saved job not found" });
+    }
+
+    // If found, delete it
+    await prisma.savedJobs.delete({
+      where: {
+        saved_id: existingSavedJob.saved_id, // Use the primary key to delete
+      },
+    });
+
+    return res.json({ message: "Job unsaved successfully" });
+  } catch (error) {
+    console.error("Error deleting saved job:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});

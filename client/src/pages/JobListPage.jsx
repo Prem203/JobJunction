@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SelectedJobDisplay from "../components/SelectedJobDisplay";
@@ -7,6 +7,7 @@ import {
   FETCH_ALL_JOBS_ENDPOINT,
   FETCH_SAVED_JOBS_ENDPOINT,
   SAVE_JOB_ENDPOINT,
+  DELETE_SAVED_JOB_ENDPOINT,
   ICON_LIST_COMMON,
 } from "../constants.js";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -25,9 +26,7 @@ export default function JobListPage() {
   const { accessToken } = useAuthToken();
 
   useEffect(() => {
-    console.log("Access token", accessToken);
     fetchAllJobDetails();
-    fetchSavedJobs();
   }, []);
 
   useEffect(() => {
@@ -36,6 +35,13 @@ export default function JobListPage() {
       setSelectedJob(jobList[0]); // Default to the first job
     }
   }, [jobList]);
+
+  useEffect(() => {
+  }, [savedJobs]);
+
+  useEffect(() => {
+    fetchSavedJobs(); 
+  }, []);
 
   const fetchAllJobDetails = async () => {
     const fetchURL = `${process.env.REACT_APP_API_URL}${FETCH_ALL_JOBS_ENDPOINT}`;
@@ -52,25 +58,36 @@ export default function JobListPage() {
     }
   };
 
-  const fetchSavedJobs = async () => {
+  // Define fetchSavedJobs with useCallback to avoid recreating it on every render
+  const fetchSavedJobs = useCallback(async () => {
     if (!accessToken) {
       console.log("No auth token found");
       return;
     }
+
     const fetchURL = `${process.env.REACT_APP_API_URL}${FETCH_SAVED_JOBS_ENDPOINT}`;
-    console.log("Fetching saved jobs from DB", fetchURL);
+
     try {
       const response = await fetch(fetchURL, {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       });
+
+      if (!response.ok) {
+        console.log("Failed to fetch saved jobs", response.statusText);
+        return;
+      }
+      console.log("response", response);
       const data = await response.json();
-      setSavedJobs(data);
+      const { SavedJobs } = data;
+      console.log("Saved jobs fetched:", SavedJobs);
+      setSavedJobs(SavedJobs);
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [accessToken]);
 
   const handleChange = (event) => {
     setQueryString(event.target.value);
@@ -115,21 +132,27 @@ export default function JobListPage() {
       const prevJobs = Array.isArray(prevSavedJobs) ? prevSavedJobs : [];
       if (index === -1) {
         // Job is not saved, add it to savedJobs
+        addSavedJobsToDB(job.job_id);
         return [...prevJobs, job];
       } else {
         // Job is already saved, remove it from savedJobs
+        removeSavedJobFromDB(job.job_id);
         const updatedSavedJobs = [...prevJobs];
         updatedSavedJobs.splice(index, 1);
         return updatedSavedJobs;
       }
     });
     console.log("Saved jobs", savedJobs);
-    addSavedJobsToDB();
+    fetchSavedJobs();
   };
 
-  const addSavedJobsToDB = async () => {
+  const addSavedJobsToDB = async (jobId) => {
     const postURL = `${process.env.REACT_APP_API_URL}${SAVE_JOB_ENDPOINT}`;
-    console.log("Adding saved jobs to DB");
+    console.log(
+      "Adding saved jobs to DB, accessToken:",
+      accessToken,
+      savedJobs
+    );
     try {
       const response = await fetch(postURL, {
         method: "POST",
@@ -137,12 +160,36 @@ export default function JobListPage() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(savedJobs),
+        body: JSON.stringify({ jobId }),
       });
       const data = await response.json();
       console.log("Saved jobs added to DB:", data);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const removeSavedJobFromDB = async (jobId) => {
+    const deleteURL = `${process.env.REACT_APP_API_URL}${DELETE_SAVED_JOB_ENDPOINT}`;
+
+    try {
+      const response = await fetch(deleteURL, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ jobId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete saved job");
+      }
+
+      const data = await response.json();
+      console.log("Deleted saved job from DB:", data);
+    } catch (error) {
+      console.error("Error deleting saved job:", error);
     }
   };
 
