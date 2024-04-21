@@ -32,6 +32,7 @@ model Job {
   employer_website              String?
   employer_company_type         String?
   job_publisher                 String?
+  job_employment_type           String?
   job_title                     String?
   job_apply_link                String @db.VarChar(1000)
   job_apply_is_direct           Boolean?

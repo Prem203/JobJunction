@@ -124,6 +124,7 @@ const addJobsToDatabase = async (queryString, jobsToSeed) => {
 
         const postedDate = new Date(job.job_posted_at_timestamp * 1000);
         const formattedPostedDate = postedDate.toLocaleString("en-US", options);
+        const queryStringLowerCase = queryString.toLowerCase();
 
         const expirationDate = new Date(
           job.job_offer_expiration_timestamp * 1000
@@ -139,12 +140,13 @@ const addJobsToDatabase = async (queryString, jobsToSeed) => {
               update: {},
               create: {
                 job_id: job.job_id,
-                query: queryString.tolowerCase(),
+                query: queryStringLowerCase,
                 employer_name: job.employer_name,
                 employer_logo: job.employer_logo,
                 employer_website: job.employer_website,
                 employer_company_type: job.employer_company_type,
                 job_publisher: job.job_publisher,
+                job_employment_type: job.job_employment_type,
                 job_title: job.job_title,
                 job_apply_link: job.job_apply_link,
                 job_apply_is_direct: job.job_apply_is_direct,
@@ -182,8 +184,71 @@ const addJobsToDatabase = async (queryString, jobsToSeed) => {
   }
 };
 
+const fixEmployerLogo = async () => {
+  try {
+    // Get all jobs from the database
+    const jobs = await prisma.job.findMany();
+
+    for (const job of jobs) {
+      if (job.employer_logo === "../assets/jjs-logo-black.png") {
+        console.log("Fixing employer logo for job:", job.job_id);
+
+        // Find a job with the same employer name but with a valid HTTPS logo
+        const otherJobWithLogo = await prisma.job.findFirst({
+          where: {
+            employer_name: job.employer_name,
+            employer_logo: {
+              startsWith: "https://", // Looking for HTTPS logos
+            },
+          },
+        });
+
+        if (otherJobWithLogo) {
+          console.log(
+            "Found job with valid logo for employer:",
+            otherJobWithLogo.employer_name
+          );
+
+          // Update the current job's logo with the valid one
+          await prisma.job.update({
+            where: { job_id: job.job_id },
+            data: {
+              employer_logo: otherJobWithLogo.employer_logo,
+            },
+          });
+        } else {
+          console.log(
+            "No valid HTTPS logo found for employer:",
+            job.employer_name
+          );
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Error fixing employer logo:", error);
+  }
+};
+
+const truncateAllDatabases = async () => {
+  try {
+    await prisma.savedJobs.deleteMany();
+    console.log("Saved job database truncated successfully.");
+    resetSavedJobSequence();
+    await prisma.user.deleteMany();
+    console.log("User database truncated successfully.");
+    resetUserSequence();
+    await prisma.job.deleteMany();
+    console.log("Job database truncated successfully.");
+    resetJobSequence();
+  } catch (error) {
+    console.error("Error truncating job database:", error);
+  }
+};
+
 async function main() {
   try {
+    truncateAllDatabases();
+
     const webDevelopmentJobsResponse = await fetchJobBasedOnQuery(
       QUERY_WEB_DEVELOPMENT_JOBS,
       FETCH_WEB_DEVELOPMENT_JOBS_URL
@@ -231,6 +296,7 @@ async function main() {
       FETCH_SOFTWARE_ENGINEERING_JOBS_URL
     );
     console.log("Successfully seeded software engineering jobs");
+    fixEmployerLogo();
   } catch (error) {
     console.error("Error:", error);
     process.exit(1);
@@ -239,7 +305,4 @@ async function main() {
   }
 }
 
-// resetJobSequence();
-// resetUserSequence();
-// resetSavedJobSequence();
 main();
