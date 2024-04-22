@@ -42,16 +42,16 @@ export const showDurationInfo = (job) => {
         <LuDot className="dot" /> Apply by {expirationDate} at {expirationTime}
       </>
     );
-  }
 
-  return (
-    <div className="selected-job-duration">
-      <p>
-        Posted {postedDuration}
-        {expirationInfo}
-      </p>
-    </div>
-  );
+    return (
+      <div className="selected-job-duration">
+        <p>
+          Posted {postedDuration}
+          {expirationInfo}
+        </p>
+      </div>
+    );
+  }
 };
 
 export const showSalaryInfo = (job) => {
@@ -69,7 +69,6 @@ export const showSalaryInfo = (job) => {
       </div>
     );
   }
-  return null; // If there's no salary info, return null
 };
 
 export const showLocationInfo = (job) => {
@@ -91,24 +90,37 @@ export const showLocationInfo = (job) => {
 };
 
 export const showEmploymentTypeInfo = (job) => {
-  return (
-    <div className="selected-job-icon-text">
-      <MdOutlineHomeWork className="glance-icons" />
-      {job.job_employment_type}
-    </div>
-  );
+  if (!job.job_employment_type === null) {
+    return (
+      <div className="selected-job-icon-text">
+        <MdOutlineHomeWork className="glance-icons" />
+        {job.job_employment_type}
+      </div>
+    );
+  }
+  return null;
 };
 
 export const showJobDescription = (job) => {
-  return (
-    <div className="selected-job-description">
-      <h2>Job Description</h2>
-      {job.job_description}
-    </div>
-  );
+  if (!job.job_description === null) {
+    return (
+      <div className="selected-job-description">
+        <h2>Job Description</h2>
+        {job.job_description}
+      </div>
+    );
+  }
+  return null;
 };
 
 export const showRequiredExperience = (job) => {
+  if (!job.job_required_experience) {
+    return (
+      <div className="selected-job-experience">
+        <h3>No information on experience</h3>
+      </div>
+    );
+  }
   const requiredExperience = job.job_required_experience;
 
   if (requiredExperience) {

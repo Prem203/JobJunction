@@ -6,13 +6,12 @@ import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import {
   FETCH_ALL_JOBS_ENDPOINT,
   FETCH_SAVED_JOBS_ENDPOINT,
-  SAVE_JOB_ENDPOINT,
-  DELETE_SAVED_JOB_ENDPOINT,
   ICON_LIST_COMMON,
 } from "../constants.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAuthToken } from "../AuthTokenContext.js";
 import JobTileInfoDisplay from "../components/JobTileInfoDisplay.jsx";
+import { addSavedJobsToDB, removeSavedJobFromDB } from "../utils/SavedJobs.js";
 
 export default function JobListPage() {
   const [jobList, setJobList] = useState([]);
@@ -127,62 +126,15 @@ export default function JobListPage() {
     );
 
     if (index === -1) {
-      addSavedJobsToDB(job.job_id);
+      addSavedJobsToDB(job.job_id, accessToken);
       setSavedJobs((prevSavedJobs) => [...prevSavedJobs, job]);
     } else {
-      removeSavedJobFromDB(job.job_id);
+      removeSavedJobFromDB(job.job_id, accessToken);
       setSavedJobs((prevSavedJobs) => {
         const updatedJobs = [...prevSavedJobs];
         updatedJobs.splice(index, 1);
         return updatedJobs;
       });
-    }
-  };
-
-  const addSavedJobsToDB = async (jobId) => {
-    const postURL = `${process.env.REACT_APP_API_URL}${SAVE_JOB_ENDPOINT}`;
-    console.log(
-      "Adding saved jobs to DB, accessToken:",
-      accessToken,
-      savedJobs
-    );
-    try {
-      const response = await fetch(postURL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({ jobId }),
-      });
-      const data = await response.json();
-      console.log("Saved jobs added to DB:", data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const removeSavedJobFromDB = async (jobId) => {
-    const deleteURL = `${process.env.REACT_APP_API_URL}${DELETE_SAVED_JOB_ENDPOINT}`;
-
-    try {
-      const response = await fetch(deleteURL, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({ jobId }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete saved job");
-      }
-
-      const data = await response.json();
-      console.log("Deleted saved job from DB:", data);
-    } catch (error) {
-      console.error("Error deleting saved job:", error);
     }
   };
 
@@ -235,7 +187,7 @@ export default function JobListPage() {
           {selectedJob ? (
             <SelectedJobDisplay selectedJob={selectedJob} />
           ) : (
-            <p>No job selected</p>
+            <h2>No job selected</h2>
           )}
         </div>
       </div>

@@ -245,6 +245,42 @@ const truncateAllDatabases = async () => {
   }
 };
 
+const removeDuplicateData = async () => {
+  try {
+    const allJobs = await prisma.job.findMany();
+
+    const uniqueJobIdentifiers = new Set();
+    const duplicateJobs = [];
+
+    const getUniqueJobIdentifier = (job) => job.job_id;
+
+    for (const job of allJobs) {
+      const identifier = getUniqueJobIdentifier(job);
+
+      if (uniqueJobIdentifiers.has(identifier)) {
+        console.log("Duplicate job found:", job.job_id);
+        duplicateJobs.push(job);
+      } else {
+        uniqueJobIdentifiers.add(identifier);
+      }
+    }
+
+    console.log("Duplicate jobs identified:", duplicateJobs);
+
+    for (const duplicateJob of duplicateJobs) {
+      await prisma.job.delete({
+        where: {
+          job_id: duplicateJob.job_id,
+        },
+      });
+    }
+
+    console.log("Removed duplicate jobs:", duplicateJobs.length);
+  } catch (error) {
+    console.error("Error removing duplicate data:", error);
+  }
+};
+
 async function main() {
   try {
     truncateAllDatabases();
@@ -305,4 +341,5 @@ async function main() {
   }
 }
 
+// removeDuplicateData();
 main();

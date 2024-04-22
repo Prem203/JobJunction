@@ -32,7 +32,11 @@ export default function SelectedJobDisplay({ selectedJob }) {
           {showDurationInfo(selectedJob)}
           <button
             onClick={() => {
-              window.open(selectedJob.job_url, "_blank", "noopener noreferrer");
+              window.open(
+                selectedJob.job_apply_link,
+                "_blank",
+                "noopener noreferrer"
+              );
             }}
             className="selected-job-button"
           >
@@ -42,9 +46,9 @@ export default function SelectedJobDisplay({ selectedJob }) {
         <div className="selected-job-subcontainer">
           <h2>At a Glance</h2>
           <div className="selected-job-salary-loc-type">
-            {showSalaryInfo(selectedJob)} {/* Salary info */}
-            {showLocationInfo(selectedJob)} {/* Location info */}
-            {showEmploymentTypeInfo(selectedJob)} {/* Employment type */}
+            {showSalaryInfo(selectedJob)}
+            {showLocationInfo(selectedJob)}
+            {showEmploymentTypeInfo(selectedJob)}
           </div>
         </div>
         <div className="selected-job-subcontainer">

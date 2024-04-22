@@ -72,7 +72,6 @@ app.get("/api/fetchAllJobs", async (req, res) => {
   res.json(allJobs);
 });
 
-
 app.get("/api/fetchSavedJobs", requireAuth, async (req, res) => {
   console.log("fetching saved jobs from DB");
   const auth0Id = req.auth.payload.sub;
@@ -86,6 +85,30 @@ app.get("/api/fetchSavedJobs", requireAuth, async (req, res) => {
   });
   console.log("savedJobs", savedJobs);
   res.json(savedJobs);
+});
+
+app.post("/api/fetchSpecificJob", async (req, res) => {
+  const { jobIds } = req.body;
+
+  if (!jobIds || !Array.isArray(jobIds)) {
+    return res.status(400).json({ error: "Invalid jobIds array" });
+  }
+
+  try {
+    const jobs = await prisma.job.findMany({
+      where: {
+        job_id: {
+          in: jobIds,
+        },
+      },
+    });
+
+    console.log("jobs", jobs);
+    res.json({ JobDetails: jobs });
+  } catch (error) {
+    console.error("Error fetching job details:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.post("/api/saveJob", requireAuth, async (req, res) => {

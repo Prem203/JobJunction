@@ -80,6 +80,6 @@ export const convertMonthsToYears = (months) => {
   const years = Math.floor(months / 12);
   const remainingMonths = months % 12;
   return remainingMonths > 0
-    ? `${years}.${remainingMonths} years`
-    : `${years} years`;
+    ? `${years}.${remainingMonths} year(s)`
+    : `${years} year(s)`;
 };

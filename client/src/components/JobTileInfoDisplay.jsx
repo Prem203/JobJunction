@@ -7,11 +7,14 @@ export default function JobTileInfoDisplay({ job }) {
   const showSalaryInfo =
     job.job_min_salary && job.job_max_salary && job.job_salary_currency;
 
+  const slicedEmployerName = job.employer_name.slice(0, 15);
+  const slicedJobTitle = job.job_title.slice(0, 20);
+
   return (
     <div className="job-info">
       {showCompanyLogo(job)}
-      <h3>{job.employer_name.slice(0, 15)}</h3>
-      <h2 className="mob-display">{job.job_title.slice(0, 20)}</h2>
+      <h3>{slicedEmployerName}</h3>
+      <h2 className="mob-display">{slicedJobTitle}</h2>
       <div className="job-tile-description">
         <div className="job-tile-salary-type">
           {showSalaryInfo && (
