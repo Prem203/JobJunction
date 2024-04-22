@@ -275,6 +275,133 @@ footer {
   font-size: 20px;
 }
 
+/* Profile Page styling */
+
+.profile-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-box {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  background-color: #efe0ff;
+  height: 350px;
+  width: 350px;
+  border-radius: 20px; /* Increased border-radius for rounded edges */
+  margin-top: 50px;
+  margin-left: 100px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+}
+
+.profile-box img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profile-box h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight:600;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.profile-content {
+  font-size: 19px;
+}
+
+.profile-icon{
+  font-size: 25px;
+  color: purple;
+  margin-right: 10px;
+}
+
+.profile-page{
+  margin-bottom: 100px;
+}
+
+.contact-box {
+  border: 1px solid #ccc;
+  background-color: #efe0ff;
+  height: 270px;
+  width: 350px;
+  border-radius: 20px; /* Increased border-radius for rounded edges */
+  margin-top: 50px;
+  margin-left: 100px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+}
+
+.contact-box h3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: first baseline;
+  align-items: center;
+  margin-bottom: 50px;
+  font-size: 24px;
+}
+
+.contact-content {
+  font-size: 19px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin: 20px;
+}
+
+.contact-content a:hover {
+  color: purple;
+}
+
+.profile-skills{
+  border: 1px solid #ccc;
+  background-color: #efe0ff;
+  height: 510px;
+  width: 850px;
+  border-radius: 20px; /* Increased border-radius for rounded edges */
+  margin-top: 50px;
+  margin-left: 100px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+}
+
+.profile-skills h3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: first baseline;
+  align-items: center;
+  margin-bottom: 50px;
+  font-size: 34px;
+}
+
+.profile-skills-content {
+  font-size: 19px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin: 20px;
+}
+
+.profile-edit {
+  font-size: 25px;
+  padding: 15px;
+  color: purple;
+  cursor: pointer;
+  margin-top: 40px;
+  margin-left: 20px;
+}
 
 @media (min-width: 100px) and (max-width: 1220px){
 
@@ -322,8 +449,8 @@ footer {
   }
 
   .icon {
-    font-size: 25px;
-    padding: 15px;
+    font-size: 18px;
+    padding: 8px;
     color: purple;
   }
 

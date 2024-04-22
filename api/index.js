@@ -72,6 +72,7 @@ app.get("/api/fetchAllJobs", async (req, res) => {
   res.json(allJobs);
 });
 
+
 app.get("/api/fetchSavedJobs", requireAuth, async (req, res) => {
   console.log("fetching saved jobs from DB");
   const auth0Id = req.auth.payload.sub;
@@ -175,4 +176,32 @@ app.delete("/api/deleteSavedJob", requireAuth, async (req, res) => {
     console.error("Error deleting saved job:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
+});
+
+app.get("/api/fetchUserDetails", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  console.log("auth0Id", auth0Id);
+  console.log("req.auth", req.body);
+  const user = await prisma.user.findUnique({
+    where: {
+      user_auth0_id: auth0Id,
+    },
+    select: {
+      user_id: true,
+      user_email: true,
+      user_first_name: true,
+      user_last_name: true,
+      user_linkedin: true,
+      user_github: true,
+      user_twitter: true,
+      user_resume_link: true,
+      user_cover_letter: true,
+      user_work_exp: true,
+      user_major: true,
+      user_project: true,
+      user_auth0_id: true,
+    },
+  });
+  console.log("user", user);
+  res.json(user);
 });

@@ -8,6 +8,7 @@ import {
   FaHome,
   FaSignOutAlt,
   FaSignInAlt,
+  FaBug
 } from "react-icons/fa";
 import "../styling/styles.css";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -60,6 +61,12 @@ export default function Header({ headerTag, iconList }) {
               <FaInfoCircle className="icon" />
             </Link>
           );
+          case "debugger":
+            return (
+              <Link key={index} to="/debugger" className="nav-link">
+                <FaBug className="icon" />
+              </Link>
+            );
         case "home":
           return (
             <Link key={index} to="/" className="nav-link">

@@ -14,12 +14,20 @@ datasource db {
 }
 
 model User {
-  user_id           Int       @id @default(autoincrement())
-  user_email        String    @unique
-  user_first_name   String    @default("")
-  user_last_name    String    @default("")
-  user_auth0_id      String   @unique @default("")
-  user_date_joined  DateTime  @default(now())
+  user_id             Int       @id @default(autoincrement())
+  user_email          String    @unique
+  user_first_name     String    @default("")
+  user_last_name      String    @default("")
+  user_linkedin       String?    
+  user_github         String?
+  user_twitter        String?
+  user_resume_link    String?
+  user_cover_letter   String?
+  user_work_exp       String?
+  user_major          String?
+  user_project        String?
+  user_auth0_id       String    @unique @default("")
+  user_date_joined    DateTime  @default(now())
   SavedJobs                     SavedJobs[]
 }
 
