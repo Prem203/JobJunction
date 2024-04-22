@@ -12,6 +12,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
 import DebuggerPage from "./pages/DebuggerPage.jsx";
 import SavedJobListPage from "./pages/SavedJobListPage.jsx";
+import EditProfilePage from "./pages/EditProfilePage.jsx";
 
 const container = document.getElementById("root");
 const root = ReactDOMClient.createRoot(container);
@@ -56,6 +57,7 @@ root.render(
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/savedJobs" element={<SavedJobListPage />} />
                     <Route path="/debugger" element={<DebuggerPage />} />
+                    <Route path="/editProfile" element={<EditProfilePage />} />
                   </Routes>
                 </RequireAuth>
               }

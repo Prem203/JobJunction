@@ -8,6 +8,7 @@ import { useAuthToken } from "../AuthTokenContext.js";
 import { FETCH_USER_ENDPOINT } from "../constants.js";
 import { useEffect, useState } from "react";
 import { FaEdit, FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function ProfilePage() {
 
@@ -84,7 +85,9 @@ export default function ProfilePage() {
           </div>
 
           <div className="profile-edit ">
-            <FaEdit />
+            <Link to="/editProfile" className="profile-edit">
+              <FaEdit />
+            </Link>
           </div>
         </div>
       <Footer />
