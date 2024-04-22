@@ -5,13 +5,13 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import LandingPage from "./pages/LandingPage.jsx";
 import JobListPage from "./pages/JobListPage.jsx";
-import SavedJobListPage from "./pages/SavedJobListPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import VerifyUser from "./components/VerifyUser";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
 import DebuggerPage from "./pages/DebuggerPage.jsx";
+import SavedJobListPage from "./pages/SavedJobListPage.jsx";
 
 const container = document.getElementById("root");
 const root = ReactDOMClient.createRoot(container);
@@ -53,8 +53,8 @@ root.render(
               element={
                 <RequireAuth>
                   <Routes>
-                    <Route path="/savedJobs" element={<SavedJobListPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/savedJobs" element={<SavedJobListPage />} />
                     <Route path="/debugger" element={<DebuggerPage />} />
                   </Routes>
                 </RequireAuth>

@@ -111,39 +111,32 @@ export default function JobListPage() {
   };
 
   const handleCardClick = (job) => {
-    setSelectedJob(job); // Update selected job when a card is clicked
+    setSelectedJob(job);
   };
 
-  //change this to save the job to the user's profile
   const toggleSave = (job) => {
     if (!user) {
       alert("Please log in or sign up to save jobs");
       return;
     }
+
     const updatedSavedJobs = Array.isArray(savedJobs) ? savedJobs : [];
 
     const index = updatedSavedJobs.findIndex(
       (savedJob) => savedJob.job_id === job.job_id
     );
 
-    console.log(index);
-
-    setSavedJobs((prevSavedJobs) => {
-      const prevJobs = Array.isArray(prevSavedJobs) ? prevSavedJobs : [];
-      if (index === -1) {
-        // Job is not saved, add it to savedJobs
-        addSavedJobsToDB(job.job_id);
-        return [...prevJobs, job];
-      } else {
-        // Job is already saved, remove it from savedJobs
-        removeSavedJobFromDB(job.job_id);
-        const updatedSavedJobs = [...prevJobs];
-        updatedSavedJobs.splice(index, 1);
-        return updatedSavedJobs;
-      }
-    });
-    console.log("Saved jobs", savedJobs);
-    fetchSavedJobs();
+    if (index === -1) {
+      addSavedJobsToDB(job.job_id);
+      setSavedJobs((prevSavedJobs) => [...prevSavedJobs, job]);
+    } else {
+      removeSavedJobFromDB(job.job_id);
+      setSavedJobs((prevSavedJobs) => {
+        const updatedJobs = [...prevSavedJobs];
+        updatedJobs.splice(index, 1);
+        return updatedJobs;
+      });
+    }
   };
 
   const addSavedJobsToDB = async (jobId) => {
@@ -225,22 +218,8 @@ export default function JobListPage() {
                 onClick={() => handleCardClick(job)}
               >
                 <JobTileInfoDisplay job={job} />
-                <div
-                  className="save-button"
-                  onClick={() =>
-                    toggleSave(
-                      job,
-                      !savedJobs ||
-                        !Array.isArray(savedJobs) ||
-                        !savedJobs.some(
-                          (savedJob) => savedJob.job_id === job.job_id
-                        )
-                    )
-                  }
-                >
-                  {savedJobs &&
-                  Array.isArray(savedJobs) &&
-                  savedJobs.some(
+                <div className="save-button" onClick={() => toggleSave(job)}>
+                  {savedJobs.some(
                     (savedJob) => savedJob.job_id === job.job_id
                   ) ? (
                     <FaBookmark />

@@ -13,12 +13,9 @@ export default function LandingPage() {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
 
   useEffect(() => {
-    // console.log("isAuthenticated", isAuthenticated);
     if (isAuthenticated) {
       setUserAuthenticated(true);
     }
-    // console.log("user", user);
-    // console.log("access token", accessToken);
   }, []);
 
   return (

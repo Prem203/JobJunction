@@ -199,11 +199,90 @@ footer {
 /* Selected Job Component styling */
 
 .selected-job-display {
-  overflow: scroll;
+  overflow-y: scroll;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 20px 50px 30px 50px;
+  flex-wrap: wrap;
+  width: 100vh;
+  justify-content: flex-start;
+  padding: 20px 250px 50px 250px;
+  margin: 20px;
+}
+
+.selected-job-container {
+    width:auto;
+    margin: 40px 0 40px 0;
+}
+
+.selected-job-subcontainer {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px 0px 20px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+
+.selected-job-company-details{
+    display: flex;
+
+}
+
+.selected-job-logo {
+    width: 120px;
+    height: 120px;
+    margin: 20px 20px 20px 20px;
+}
+
+.selected-job-company-title {
+    width: 100%;
+    font-size: 20px;
+    margin: 20px 15px 20px 20px;
+}
+
+.selected-job-title {
+    margin: 0px 20px 0px 20px;
+}
+
+.selected-job-button {
+    margin: 20px 20px 25px 20px;
+    width: 80px;
+    height: 45px;
+    border-radius: 5px;
+    background-color: #ccaeeb;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.selected-job-salary-loc-type{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0px 20px 0px 20px
+}
+
+.selected-job-icon-text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 20px 10px 20px;
+}
+
+.glance-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin: 0px 20px 0px 20px;
+}
+
+.selected-job-description {
+    margin: 20px 20px 20px 20px;
+}
+
+.selected-job-skills {
+    margin: 20px 20px 20px 0px;
 }
 
 /* Job Tile Component styling */
