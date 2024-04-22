@@ -57,7 +57,10 @@ root.render(
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/savedJobs" element={<SavedJobListPage />} />
                     <Route path="/debugger" element={<DebuggerPage />} />
-                    <Route path="/editProfile" element={<EditProfilePage />} />
+                    <Route
+                      path="/editProfile/:user_id"
+                      element={<EditProfilePage />}
+                    />
                   </Routes>
                 </RequireAuth>
               }

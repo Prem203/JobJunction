@@ -228,3 +228,57 @@ app.get("/api/fetchUserDetails", requireAuth, async (req, res) => {
   console.log("user", user);
   res.json(user);
 });
+
+app.get("/api/fetchSpecificUser/:user_id", requireAuth, async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const user = await prisma.user.findUnique({
+      where: { user_id: Number(user_id) },
+    });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.put("/api/updateUserDetails/:user_id", requireAuth, async (req, res) => {
+  const { user_id } = req.params; // Extract user_id from URL
+  const {
+    user_linkedin,
+    user_github,
+    user_twitter,
+    user_major,
+    user_work_exp,
+    user_cover_letter,
+    user_resume_link,
+    user_project,
+  } = req.body;
+
+  console.log("req.body", req.body);
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { user_id: Number(user_id) },
+      data: {
+        user_linkedin,
+        user_github,
+        user_twitter,
+        user_major,
+        user_work_exp,
+        user_cover_letter,
+        user_resume_link,
+        user_project,
+      },
+    });
+
+    res.json(updatedUser); // Return the updated user data
+    console.log("updatedUser", updatedUser);
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});

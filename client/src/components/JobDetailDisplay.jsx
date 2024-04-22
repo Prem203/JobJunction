@@ -77,7 +77,7 @@ export const showLocationInfo = (job) => {
   return (
     <div className="selected-job-icon-text">
       <MdOutlineLocationOn className="glance-icons" />
-      {` ${locationDescription} based in `}
+      {` ${locationDescription}, based in `}
       {job.job_city && job.job_state ? (
         <>
           {job.job_city}, {job.job_state}

@@ -159,28 +159,34 @@ export default function JobListPage() {
             <button onClick={fetchQueryJobs}>Search</button>
           </div>
           <div className="display-jobs">
-            {jobsToDisplay.map((job) => (
-              <div
-                key={job.job_id}
-                className={`job-tile ${
-                  selectedJob && selectedJob.job_id === job.job_id
-                    ? "selected"
-                    : ""
-                }`}
-                onClick={() => handleCardClick(job)}
-              >
-                <JobTileInfoDisplay job={job} />
-                <div className="save-button" onClick={() => toggleSave(job)}>
-                  {savedJobs.some(
-                    (savedJob) => savedJob.job_id === job.job_id
-                  ) ? (
-                    <FaBookmark />
-                  ) : (
-                    <FaRegBookmark />
-                  )}
-                </div>
+            {jobsToDisplay.length === 0 ? (
+              <div className="no-jobs">
+                <h2>No jobs found to display</h2>
               </div>
-            ))}
+            ) : (
+              jobsToDisplay.map((job) => (
+                <div
+                  key={job.job_id}
+                  className={`job-tile ${
+                    selectedJob && selectedJob.job_id === job.job_id
+                      ? "selected"
+                      : ""
+                  }`}
+                  onClick={() => handleCardClick(job)}
+                >
+                  <JobTileInfoDisplay job={job} />
+                  <div className="save-button" onClick={() => toggleSave(job)}>
+                    {savedJobs.some(
+                      (savedJob) => savedJob.job_id === job.job_id
+                    ) ? (
+                      <FaBookmark />
+                    ) : (
+                      <FaRegBookmark />
+                    )}
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
         <div className="selected-job-display">

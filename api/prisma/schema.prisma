@@ -23,7 +23,7 @@ model User {
   user_twitter        String?
   user_resume_link    String?
   user_cover_letter   String?
-  user_work_exp       String?
+  user_work_exp       Int       @default(0)
   user_major          String?
   user_project        String?
   user_auth0_id       String    @unique @default("")

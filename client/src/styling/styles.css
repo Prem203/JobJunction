@@ -223,7 +223,6 @@ footer {
 
 .selected-job-company-details{
     display: flex;
-
 }
 
 .selected-job-logo {
@@ -330,7 +329,6 @@ footer {
   vertical-align: middle;
 }
 
-
 .save-button {
   position: absolute;
   top: 10px;
@@ -370,7 +368,7 @@ footer {
   border: 1px solid #ccc;
   background-color: #efe0ff;
   height: 350px;
-  width: 350px;
+  width: 550px;
   border-radius: 20px; /* Increased border-radius for rounded edges */
   margin-top: 50px;
   margin-left: 100px;
@@ -404,18 +402,19 @@ footer {
 .profile-icon{
   font-size: 25px;
   color: purple;
-  margin-right: 10px;
+  margin-right: 25px;
 }
 
 .profile-page{
   margin-bottom: 100px;
+  margin-left: 100px;
 }
 
 .contact-box {
   border: 1px solid #ccc;
   background-color: #efe0ff;
   height: 270px;
-  width: 350px;
+  width: 550px;
   border-radius: 20px; /* Increased border-radius for rounded edges */
   margin-top: 50px;
   margin-left: 100px;
@@ -437,7 +436,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: left;
-  margin: 20px;
+  padding-left: 40px;
 }
 
 .contact-content a:hover {
@@ -447,7 +446,7 @@ footer {
 .profile-skills{
   border: 1px solid #ccc;
   background-color: #efe0ff;
-  height: 510px;
+  height: 670px;
   width: 850px;
   border-radius: 20px; /* Increased border-radius for rounded edges */
   margin-top: 50px;
@@ -470,7 +469,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: left;
-  margin: 20px;
+  margin: 40px;
 }
 
 .profile-edit {
@@ -547,6 +546,8 @@ footer {
   align-items: center;
   width: 20%;
 }
+
+/* Screen Size customization */
 @media (min-width: 100px) and (max-width: 1220px){
 
   /* Header Component styling */
@@ -576,6 +577,7 @@ footer {
   .icon {
     font-size: 18px;
     padding: 15px;
+    margin: 30px;
     color: purple;
   }
 

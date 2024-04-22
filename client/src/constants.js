@@ -8,3 +8,5 @@ export const FETCH_SAVED_JOBS_ENDPOINT = "/api/fetchSavedJobs";
 export const SAVE_JOB_ENDPOINT = "/api/saveJob";
 export const DELETE_SAVED_JOB_ENDPOINT = "/api/deleteSavedJob";
 export const FETCH_USER_ENDPOINT = "/api/fetchUserDetails";
+export const FETCH_SPECIFIC_USER_ENDPOINT = "/api/fetchSpecificUser";
+export const UPDATE_USER_DETAILS_ENDPOINT = "/api/updateUserDetails";
