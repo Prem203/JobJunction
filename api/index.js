@@ -22,6 +22,7 @@ app.use(morgan("dev"));
 
 const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
+const PORT = process.env.PORT || 8080;
 
 // this is a public endpoint because it doesn't have the requireAuth middleware
 app.get("/ping", (req, res) => {
@@ -30,8 +31,8 @@ app.get("/ping", (req, res) => {
 
 // add your endpoints below this line
 
-app.listen(8000, () => {
-  console.log("Server running on http://localhost:8000 🎉 🚀");
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT} 🎉 🚀`);
 });
 
 //handle 500 error -- display no jobs exist with this title!
