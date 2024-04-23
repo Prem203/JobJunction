@@ -22,7 +22,7 @@ app.use(morgan("dev"));
 
 const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
-const PORT = process.env.PORT || 8080;
+const PORT = parseInt(process.env.PORT) || 8080;
 
 // this is a public endpoint because it doesn't have the requireAuth middleware
 app.get("/ping", (req, res) => {
