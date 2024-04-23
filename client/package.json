@@ -6,7 +6,6 @@
     "@auth0/auth0-react": "^2.2.4",
     "@prisma/client": "^5.10.2",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "bootstrap": "^5.3.3",
     "react": "^18.2.0",
@@ -42,5 +41,9 @@
   },
   "jest": {
     "resetMocks": false
+  },
+  "devDependencies": {
+    "@testing-library/react": "^15.0.2",
+    "@types/react-dom": "^18.2.25"
   }
 }

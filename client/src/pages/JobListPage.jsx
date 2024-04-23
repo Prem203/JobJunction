@@ -49,6 +49,7 @@ export default function JobListPage() {
       const response = await fetch(fetchURL);
       const data = await response.json();
       setJobList(data);
+      console.log("jobList --> ", jobList);
 
       const uniqueQueries = new Set(data.map((job) => job.query.toLowerCase()));
       setFetchedQueries(Array.from(uniqueQueries));
@@ -104,6 +105,8 @@ export default function JobListPage() {
       setJobsToDisplay(filteredJobs);
       if (filteredJobs.length > 0) {
         setSelectedJob(filteredJobs[0]); // Select the first filtered job
+      } else {
+        setSelectedJob(null);
       }
     }
     jobDataRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -175,10 +178,17 @@ export default function JobListPage() {
                   onClick={() => handleCardClick(job)}
                 >
                   <JobTileInfoDisplay job={job} />
-                  <div className="save-button" onClick={() => toggleSave(job)}>
-                    {savedJobs.some(
-                      (savedJob) => savedJob.job_id === job.job_id
-                    ) ? (
+                  <div
+                    className="save-button"
+                    role="button"
+                    aria-label={
+                      savedJobs.some((sj) => sj.job_id === job.job_id)
+                        ? "unsaveJob"
+                        : "saveJob"
+                    }
+                    onClick={() => toggleSave(job)}
+                  >
+                    {savedJobs.some((sj) => sj.job_id === job.job_id) ? (
                       <FaBookmark />
                     ) : (
                       <FaRegBookmark />

@@ -3,12 +3,10 @@ import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
 import { ICON_LIST_HOME_LOGIN, ICON_LIST_HOME_LOGOUT } from "../constants.js";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useAuthToken } from "../AuthTokenContext";
 import "../styling/styles.css";
 
 export default function LandingPage() {
-  const { user, isAuthenticated } = useAuth0();
-  const { accessToken } = useAuthToken();
+  const { isAuthenticated } = useAuth0();
 
   const [userAuthenticated, setUserAuthenticated] = useState(false);
 
@@ -23,7 +21,7 @@ export default function LandingPage() {
       <Header
         headerTag={"Job Junction"}
         iconList={
-          isAuthenticated ? ICON_LIST_HOME_LOGIN : ICON_LIST_HOME_LOGOUT
+          userAuthenticated ? ICON_LIST_HOME_LOGIN : ICON_LIST_HOME_LOGOUT
         }
       />
       <div className="semicircle">
