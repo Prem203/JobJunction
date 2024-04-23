@@ -1,7 +1,8 @@
 // export const API_KEY = "e5cbb89badmshc2aa54afaf24a8cp18af7ajsnc8e65e41ca1b";
 // export const API_KEY = "fcae31b00bmshc41bd0c33c49c69p19bbf6jsn80220c6f3557";
 // export const API_KEY = "7f6fb2165dmshf36307a5d2fc039p16385ajsnac5d6f0fb144";
-export const API_KEY = "a4bbbfb1cdmsh0142c43f2d21385p13d0afjsn623411c378ac";
+// export const API_KEY = "a4bbbfb1cdmsh0142c43f2d21385p13d0afjsn623411c378ac";
+export const API_KEY = "af976c48a2mshbdafd020f9b0dd1p15a9cajsnab676470f889";
 export const API_HOST = "jsearch.p.rapidapi.com";
 
 export const QUERY_WEB_DEVELOPMENT_JOBS = "Web Development";
