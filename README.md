@@ -1,7 +1,3 @@
-# assignment-03-jjs
-check canvas for instructions
-
-
 # Job Junction
 
 Job Junction is a job portal that allows users to browse job listings, save jobs to their profiles, and manage their saved jobs and profiles. The app requires users to sign in to save jobs, and it uses Auth0 for authentication. The backend is deployed on Render, and the frontend is deployed on Vercel.
